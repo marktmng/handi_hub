@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "handi-hub", "handi-hub.csproj", "{16F58B39-A004-2909-E548-F5442667C104}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16F58B39-A004-2909-E548-F5442667C104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16F58B39-A004-2909-E548-F5442667C104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16F58B39-A004-2909-E548-F5442667C104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16F58B39-A004-2909-E548-F5442667C104}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9CAF707B-3937-4473-B9F8-C8678087F5EB}
+	EndGlobalSection
+EndGlobal
