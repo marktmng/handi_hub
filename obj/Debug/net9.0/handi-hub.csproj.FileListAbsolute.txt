@@ -33,3 +33,4 @@ C:\MIT-AIS\T2_2025\handi-hub\obj\Debug\net9.0\ref\handi-hub.dll
 C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\MIT-AIS\T2_2025\handi-hub\obj\Debug\net9.0\handi-hub.sourcelink.json
