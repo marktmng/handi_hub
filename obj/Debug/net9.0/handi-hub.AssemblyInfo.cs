@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("handi-hub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f572e28da2641ada6b8867ee2c789e4c603ceb4a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+76bd084067302d2023770e275faed7c6d9f9c602")]
 [assembly: System.Reflection.AssemblyProductAttribute("handi-hub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("handi-hub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
