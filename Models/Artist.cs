@@ -1,15 +1,21 @@
+using System.Text.Json.Serialization;
+
 namespace DotnetAPI.Models
 {
-    public class User // User model representing user data
+    public class Artist
     {
-        public int? UserId { get; set; }
+        public int? ArtistId { get; set; }
+        public int UserId { get; set; }
+
+        // From Users table
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public string Role { get; set; }
 
-        // Additional properties can be added as needed
+        // From Artists table
+        public string Bio { get; set; }
     }
+
 }

@@ -1,6 +1,6 @@
 # Build results
 /bin/
-/obj/
+obj/
 
 # Application settings (hide sensitive info)
 /appsettings.json

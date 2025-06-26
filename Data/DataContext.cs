@@ -16,6 +16,7 @@ namespace DotnetAPI.Data
 
         // Represents the "Users" table in the database
         public DbSet<User> Users { get; set; }
+        public DbSet<Artist> Artists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,6 +35,11 @@ namespace DotnetAPI.Data
             modelBuilder.Entity<User>()
                 .ToTable("Users", "HandiHub")
                 .HasKey(u => u.UserId);
+
+            // Configure the Artist entity
+            modelBuilder.Entity<Artist>()
+                .ToTable("Artists", "HandiHub")
+                .HasKey(a => a.ArtistId);
         }
     }
 }
