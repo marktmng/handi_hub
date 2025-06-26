@@ -8,7 +8,6 @@ namespace DotnetAPI.Data
     {
         Task<IEnumerable<User>> GetUsersAsync(int? userId = null, string role = null);
         Task<User> UpsertUserAsync(User user);
-
         Task<bool> DeleteUserAsync(int userId);
         Task<bool> UpdateUserRoleAsync(int userId, string role);
     }

@@ -7,35 +7,64 @@ using DotnetAPI.Repository; // ✅ Import your DataContext class from the Data f
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register MVC Controller support (for APIs)
+// ✅ Register MVC Controller support (for APIs)
 builder.Services.AddControllers();
 
-// Register the DataContext as a service for dependency injection using IConfiguration manually
-builder.Services.AddScoped<DataContext>();
+// ✅ Register the DataContext using connection string from appsettings.json
+builder.Services.AddDbContext<DataContext>();
 
-// Register the UserRepository as a service for dependency injection
+// ✅ Register Repositories for Dependency Injection
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
 
-// Register Swagger for API documentation/testing
+// ✅ Register Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ✅ Register CORS policies
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCors", corsBuilder =>
+    {
+        corsBuilder.WithOrigins(
+            "http://localhost:4200",
+            "http://localhost:3000",
+            "http://localhost:8000"
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    });
+
+    options.AddPolicy("ProdCors", corsBuilder =>
+    {
+        corsBuilder.WithOrigins("https://myProductionSite.com")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
-// Enable Swagger UI only in development mode
+// ✅ Enable Swagger only in Development
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Redirect HTTP to HTTPS
+// ✅ Enforce HTTPS
 app.UseHttpsRedirection();
 
-// Use authorization middleware
+// ✅ Use CORS (choose policy based on environment)
+app.UseCors(app.Environment.IsDevelopment() ? "DevCors" : "ProdCors");
+
+// ✅ Use authorization (if using [Authorize] attributes)
 app.UseAuthorization();
 
-// Map HTTP routes to controller endpoints
+// ✅ Map controller routes
 app.MapControllers();
 
-app.Run(); // 🚀 Run the web application
+// ✅ Run the web app
+app.Run();
