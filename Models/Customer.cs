@@ -2,13 +2,10 @@ using System.Text.Json.Serialization;
 
 namespace DotnetAPI.Models
 {
-    public class Artist
+    public class Customer
     {
-        public int? ArtistId { get; set; }
+        public int? CustomerId { get; set; }
         public int UserId { get; set; }
-
-        // From Artists table
-        public string Bio { get; set; }
 
         public User User { get; set; } // Navigation property to User
     }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using DotnetAPI.Models;
+using DotnetAPI.Dtos;
 
 namespace DotnetAPI.Data
 {
@@ -17,6 +18,11 @@ namespace DotnetAPI.Data
         // Represents the "Users" table in the database
         public DbSet<User> Users { get; set; }
         public DbSet<Artist> Artists { get; set; }
+
+        // Represents the "Dtos" for read-only queries
+        public DbSet<ArtistDto> ArtistDtos { get; set; }
+        public DbSet<UsersDto> UserDtos { get; set; }
+        public DbSet<CustomerDto> CustomerDtos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -40,6 +46,16 @@ namespace DotnetAPI.Data
             modelBuilder.Entity<Artist>()
                 .ToTable("Artists", "HandiHub")
                 .HasKey(a => a.ArtistId);
+
+            // Configure the Customer entity
+            modelBuilder.Entity<Customer>()
+                .ToTable("Customers", "HandiHub")
+                .HasKey(c => c.CustomerId);
+
+            // Configure the Dto entity (no key, used for read-only queries)
+            modelBuilder.Entity<ArtistDto>().HasNoKey();
+            modelBuilder.Entity<UsersDto>().HasNoKey();
+            modelBuilder.Entity<CustomerDto>().HasNoKey();
         }
     }
 }

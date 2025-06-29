@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DotnetAPI.Data;
 using DotnetAPI.Models;
+using DotnetAPI.Dtos;
 using System.Threading.Tasks;
 
 namespace DotnetAPI.Controllers
@@ -16,7 +17,7 @@ namespace DotnetAPI.Controllers
             _artistRepository = artistRepository;
         }
 
-        // ✅ GET artists (all or by ID)
+        // ✅ GET artists (all or by ID) — returns ArtistDto (includes user details)
         [HttpGet("Get")]
         public async Task<IActionResult> GetArtists([FromQuery] int? artistId = null)
         {
@@ -34,7 +35,7 @@ namespace DotnetAPI.Controllers
             var result = await _artistRepository.UpsertArtistAsync(artist);
 
             if (result != null && result.ArtistId.HasValue)
-                return Ok(result);
+                return Ok(result); // returns basic Artist model (no user details)
 
             return BadRequest("Failed to process artist data.");
         }

@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace DotnetAPI.Data
 {
-    public interface IArtistRepository
+    public interface ICustomerRepository
     {
         // ✅ Get joined artist + user info (used for GET requests)
-        Task<IEnumerable<ArtistDto>> GetArtistsAsync(int? artistId = null);
+        Task<IEnumerable<CustomerDto>> GetCustomersAsync(int? customerId = null);
 
         // ✅ Create or update artist
-        Task<Artist> UpsertArtistAsync(Artist artist);
+        Task<Customer> UpsertCustomerAsync(Customer customer);
 
         // ✅ Delete artist by ID
-        Task<bool> DeleteArtistAsync(int artistId);
+        Task<bool> DeleteCustomerAsync(int customerId);
     }
 }

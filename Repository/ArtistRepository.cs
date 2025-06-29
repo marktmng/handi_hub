@@ -1,5 +1,6 @@
 using DotnetAPI.Data;
 using DotnetAPI.Models;
+using DotnetAPI.Dtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
@@ -16,21 +17,17 @@ namespace DotnetAPI.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<Artist>> GetArtistsAsync(int? artistId = null)
+        // ✅ Get artists with optional filter
+        public async Task<IEnumerable<ArtistDto>> GetArtistsAsync(int? artistId = null)
         {
-            var parameters = new List<SqlParameter>();
-
             var artistIdParam = new SqlParameter("@ArtistId", artistId.HasValue ? artistId.Value : (object)DBNull.Value);
 
-            parameters.Add(artistIdParam);
-
-            string sql = "EXEC HandiHub.spArtists_Get @ArtistId";
-
-            return await _context.Artists
-                .FromSqlRaw(sql, parameters.ToArray())
+            return await _context.ArtistDtos
+                .FromSqlRaw("EXEC HandiHub.spArtists_Get @ArtistId", artistIdParam)
                 .ToListAsync();
         }
 
+        // ✅ Insert or update artist
         public async Task<Artist> UpsertArtistAsync(Artist artist)
         {
             var artistIdParam = new SqlParameter("@ArtistId", System.Data.SqlDbType.Int)
@@ -50,9 +47,7 @@ namespace DotnetAPI.Repository
             return artist;
         }
 
-
-
-
+        // ✅ Delete artist by ID
         public async Task<bool> DeleteArtistAsync(int artistId)
         {
             var artistIdParam = new SqlParameter("@ArtistId", artistId);
@@ -67,6 +62,5 @@ namespace DotnetAPI.Repository
 
             return (int)rowsAffectedParam.Value > 0;
         }
-
     }
 }

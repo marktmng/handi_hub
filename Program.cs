@@ -16,6 +16,7 @@ builder.Services.AddDbContext<DataContext>();
 // ✅ Register Repositories for Dependency Injection
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>(); // Register CustomerRepository
 
 // ✅ Register Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
