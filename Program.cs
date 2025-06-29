@@ -17,6 +17,7 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>(); // Register CustomerRepository
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // Register CategoryRepository
 
 // ✅ Register Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();

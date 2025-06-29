@@ -37,7 +37,7 @@ namespace DotnetAPI.Controllers
         }
 
         // New PUT endpoint for updating the full user info
-        [HttpPut("UpdateUser/{userId}")]
+        [HttpPut("Update/{userId}")]
         public async Task<IActionResult> UpdateUser(int userId, [FromBody] User user)
         {
             if (user == null || user.UserId != userId)
@@ -50,7 +50,7 @@ namespace DotnetAPI.Controllers
             return BadRequest("Failed to update user.");
         }
 
-        [HttpDelete("DeleteUser/{userId}")]
+        [HttpDelete("Delete/{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
             var deleted = await _userRepository.DeleteUserAsync(userId);
