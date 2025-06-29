@@ -18,7 +18,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ GET artists (all or by ID) — returns ArtistDto (includes user details)
-        [HttpGet("Get")]
+        [HttpGet("Getartists")]
         public async Task<IActionResult> GetArtists([FromQuery] int? artistId = null)
         {
             var artists = await _artistRepository.GetArtistsAsync(artistId);
@@ -26,7 +26,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ POST create or update artist
-        [HttpPost("Upsert")]
+        [HttpPost("UpsertArtist")]
         public async Task<IActionResult> UpsertArtistAsync([FromBody] Artist artist)
         {
             if (artist == null)
