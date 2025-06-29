@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DotnetAPI.Dtos; // Assuming UsersDto is defined in Dtos namespace
 
 namespace DotnetAPI.Repository
 {
@@ -16,7 +17,7 @@ namespace DotnetAPI.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync(int? userId = null, string role = null)
+        public async Task<IEnumerable<UsersDto>> GetUsersAsync(int? userId = null, string role = null)
         {
             var parameters = new List<SqlParameter>();
 
@@ -28,7 +29,7 @@ namespace DotnetAPI.Repository
 
             string sql = "EXEC HandiHub.spUsers_Get @UserId, @Role";
 
-            return await _context.Users
+            return await _context.UserDtos
                 .FromSqlRaw(sql, parameters.ToArray())
                 .ToListAsync();
         }
