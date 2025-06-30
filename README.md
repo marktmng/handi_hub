@@ -21,16 +21,13 @@
 | API Docs       | Swagger / Swashbuckle        |
 | Authentication | JWT (planned or in progress) |
 
-## 📁 Project Structure
-
-
 
 ## 📁 Project Structure
 
 handi_hub/
 ├── Controllers/
 ├── Data/
-├──Dtos/
+├── Dtos/
 ├── Models/
 ├── Properties/
 ├── Repository/
