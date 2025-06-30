@@ -20,12 +20,14 @@ namespace DotnetAPI.Data
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         // Represents the "Dtos" for read-only queries
         public DbSet<ArtistDto> ArtistDtos { get; set; }
         public DbSet<UsersDto> UserDtos { get; set; }
         public DbSet<CustomerDto> CustomerDtos { get; set; }
         public DbSet<CategoryDto> CategoryDtos { get; set; }
+        public DbSet<ProductDto> ProductDtos { get; set; } // Add ProductDto>
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -61,11 +63,17 @@ namespace DotnetAPI.Data
                 .ToTable("Categories", "HandiHub")
                 .HasKey(c => c.CategoryId);
 
+            // Configure the Product entity
+            modelBuilder.Entity<Product>()
+                .ToTable("Products", "HandiHub")
+                .HasKey(p => p.ProductId);
+
             // Configure the Dto entity (no key, used for read-only queries)
             modelBuilder.Entity<ArtistDto>().HasNoKey();
             modelBuilder.Entity<UsersDto>().HasNoKey();
             modelBuilder.Entity<CustomerDto>().HasNoKey();
             modelBuilder.Entity<CategoryDto>().HasNoKey();
+            modelBuilder.Entity<ProductDto>().HasNoKey();
         }
     }
 }

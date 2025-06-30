@@ -18,6 +18,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>(); // Register CustomerRepository
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // Register CategoryRepository
+builder.Services.AddScoped<IProductRepository, ProductRepository>(); // Register ProductRepository
 
 // ✅ Register Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
