@@ -20,6 +20,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>(); // Regist
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // Register CategoryRepository
 builder.Services.AddScoped<IProductRepository, ProductRepository>(); // Register ProductRepository
 builder.Services.AddScoped<IOrderRepository, OrderRepository>(); // Register OrderRepository
+builder.Services.AddScoped<ICartRepository, CartRepository>(); // Register CartItemRepository
 
 // ✅ Register Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
