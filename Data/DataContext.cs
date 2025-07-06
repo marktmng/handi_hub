@@ -24,6 +24,8 @@ namespace DotnetAPI.Data
         public DbSet<Order> Orders { get; set; } // Add Order entity
         public DbSet<OrderItem> OrderItems { get; set; } // Add OrderItem entity
         public DbSet<CartItem> CartItems { get; set; } // Add CartItem entity for shopping cart functionality
+        public DbSet<Payment> Payments { get; set; } // Add Payment entity for payment processing
+        public DbSet<PaymentMethod> PaymentMethods { get; set; } // Add PaymentMethod entity for payment methods
 
         // Represents the "Dtos" for read-only queries
         public DbSet<ArtistDto> ArtistDtos { get; set; }
@@ -34,6 +36,8 @@ namespace DotnetAPI.Data
         public DbSet<OrderDto> OrderDtos { get; set; } // Add OrderDto for read-only queries
         public DbSet<OrderItemDto> OrderItemDtos { get; set; } // Add OrderItemDto for read-only queries
         public DbSet<CartItemDto> CartItemDtos { get; set; } // Add CartItemDto for shopping cart functionality
+        public DbSet<PaymentDto> PaymentDtos { get; set; } // Add PaymentDto for payment processing
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -89,6 +93,14 @@ namespace DotnetAPI.Data
                 .ToTable("CartItems", "HandiHub")
                 .HasKey(ci => new { ci.CartId, ci.UserId, ci.ProductId }); // Composite key
 
+            modelBuilder.Entity<Payment>()
+                .ToTable("Payments", "HandiHub")
+                .HasKey(p => p.PaymentId);
+
+            modelBuilder.Entity<PaymentMethod>()
+                .ToTable("PaymentMethods", "HandiHub")
+                .HasKey(pm => pm.PaymentMethodId);
+
             // Configure the Dto entity (no key, used for read-only queries)
             modelBuilder.Entity<ArtistDto>().HasNoKey();
             modelBuilder.Entity<UsersDto>().HasNoKey();
@@ -98,6 +110,7 @@ namespace DotnetAPI.Data
             modelBuilder.Entity<OrderDto>().HasNoKey();
             modelBuilder.Entity<OrderItemDto>().HasNoKey();
             modelBuilder.Entity<CartItemDto>().HasNoKey();
+            modelBuilder.Entity<PaymentDto>().HasNoKey();
         }
     }
 }
