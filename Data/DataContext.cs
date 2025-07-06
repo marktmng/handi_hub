@@ -23,6 +23,7 @@ namespace DotnetAPI.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; } // Add Order entity
         public DbSet<OrderItem> OrderItems { get; set; } // Add OrderItem entity
+        public DbSet<CartItem> CartItems { get; set; } // Add CartItem entity for shopping cart functionality
 
         // Represents the "Dtos" for read-only queries
         public DbSet<ArtistDto> ArtistDtos { get; set; }
@@ -32,6 +33,7 @@ namespace DotnetAPI.Data
         public DbSet<ProductDto> ProductDtos { get; set; }
         public DbSet<OrderDto> OrderDtos { get; set; } // Add OrderDto for read-only queries
         public DbSet<OrderItemDto> OrderItemDtos { get; set; } // Add OrderItemDto for read-only queries
+        public DbSet<CartItemDto> CartItemDtos { get; set; } // Add CartItemDto for shopping cart functionality
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -82,6 +84,11 @@ namespace DotnetAPI.Data
                 .ToTable("OrderItems", "HandiHub")
                 .HasKey(oi => oi.OrderItemId);
 
+            // Configure the CartItem entity
+            modelBuilder.Entity<CartItem>()
+                .ToTable("CartItems", "HandiHub")
+                .HasKey(ci => new { ci.CartId, ci.UserId, ci.ProductId }); // Composite key
+
             // Configure the Dto entity (no key, used for read-only queries)
             modelBuilder.Entity<ArtistDto>().HasNoKey();
             modelBuilder.Entity<UsersDto>().HasNoKey();
@@ -90,6 +97,7 @@ namespace DotnetAPI.Data
             modelBuilder.Entity<ProductDto>().HasNoKey();
             modelBuilder.Entity<OrderDto>().HasNoKey();
             modelBuilder.Entity<OrderItemDto>().HasNoKey();
+            modelBuilder.Entity<CartItemDto>().HasNoKey();
         }
     }
 }
