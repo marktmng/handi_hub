@@ -4,6 +4,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using DotnetAPI.Data;
 using DotnetAPI.Repository; // ✅ Import your DataContext class from the Data folder
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,31 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>(); // Register
 builder.Services.AddScoped<IOrderRepository, OrderRepository>(); // Register OrderRepository
 builder.Services.AddScoped<ICartRepository, CartRepository>(); // Register CartItemRepository
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+string? tokenKeyString = builder.Configuration.GetSection("AppSettings:TokenKey").Value;
+
+// creating authentication token validation parameters
+// pull out token key string
+SymmetricSecurityKey tokenKey = new SymmetricSecurityKey( // symmetric key and passing to new symmetric key 
+    Encoding.UTF8.GetBytes( // and passing to new symmetric key byte array
+        tokenKeyString != null ? tokenKeyString : ""
+        )
+    );
+
+// token validation parameters for application how to use it
+TokenValidationParameters tokenValidationParameters = new TokenValidationParameters()
+{
+    IssuerSigningKey = tokenKey,
+    ValidateIssuer = false,
+    ValidateIssuerSigningKey = false,
+    ValidateAudience = false
+};
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // set authentication scheme
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = tokenValidationParameters;
+    });
 
 // ✅ Register Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
