@@ -83,3 +83,9 @@ C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Run
 C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\appsettings.json
+C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
+C:\MIT-AIS\T2_2025\handi-hub\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll

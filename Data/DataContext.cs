@@ -1,6 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using DotnetAPI.Models;
 using DotnetAPI.Dtos;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Options;      // For SymmetricSecurityKey, TokenValidationParameters
+
 
 namespace DotnetAPI.Data
 {
@@ -37,6 +46,9 @@ namespace DotnetAPI.Data
         public DbSet<OrderItemDto> OrderItemDtos { get; set; } // Add OrderItemDto for read-only queries
         public DbSet<CartItemDto> CartItemDtos { get; set; } // Add CartItemDto for shopping cart functionality
         public DbSet<PaymentDto> PaymentDtos { get; set; } // Add PaymentDto for payment processing
+        public DbSet<RegistrationDto> RegistrationDtos { get; set; } // Add RegistrationDto for user registration
+        public DbSet<LoginDto> LoginDtos { get; set; } // Add LoginDto for user login
+        public DbSet<LoginConfirmationDto> LoginConfirmationDtos { get; set; } // Add LoginConfirmationDto for login confirmation
 
 
 
@@ -100,6 +112,10 @@ namespace DotnetAPI.Data
             modelBuilder.Entity<PaymentMethod>()
                 .ToTable("PaymentMethods", "HandiHub")
                 .HasKey(pm => pm.PaymentMethodId);
+            
+            modelBuilder.Entity<RegistrationDto>()
+                .ToTable("Auth", "HandiHub")
+                .HasKey(r => new { r.FirstName, r.LastName, r.UserName, r.Email, r.PhoneNumber, r.Role });
 
             // Configure the Dto entity (no key, used for read-only queries)
             modelBuilder.Entity<ArtistDto>().HasNoKey();
@@ -111,6 +127,8 @@ namespace DotnetAPI.Data
             modelBuilder.Entity<OrderItemDto>().HasNoKey();
             modelBuilder.Entity<CartItemDto>().HasNoKey();
             modelBuilder.Entity<PaymentDto>().HasNoKey();
+            modelBuilder.Entity<LoginDto>().HasNoKey();
+            modelBuilder.Entity<LoginConfirmationDto>().HasNoKey();
         }
     }
 }
