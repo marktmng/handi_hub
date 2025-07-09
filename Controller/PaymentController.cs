@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DotnetAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentRepository _paymentRepository;
