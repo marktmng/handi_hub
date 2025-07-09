@@ -7,7 +7,7 @@ using DotnetAPI.Repository;
 namespace DotnetAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository; // Injected repository to access catery data
