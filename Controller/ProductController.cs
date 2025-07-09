@@ -7,7 +7,7 @@ using DotnetAPI.Dtos;
 namespace DotnetAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _productRepository;

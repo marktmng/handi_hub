@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace DotnetAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository; // Injected repository to access user data

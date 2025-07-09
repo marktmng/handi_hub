@@ -10,7 +10,7 @@ using System.Security.Claims;
 namespace DotnetAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly DataContext _context;
