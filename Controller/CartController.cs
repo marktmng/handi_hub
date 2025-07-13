@@ -3,6 +3,7 @@ using DotnetAPI.Models;
 using DotnetAPI.Repository;
 using DotnetAPI.Data;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotnetAPI.Controllers
 {
@@ -17,6 +18,7 @@ namespace DotnetAPI.Controllers
             _cartRepository = cartRepository;
         }
 
+        [Authorize]
         [HttpGet("{userId}/Items")]
         public async Task<IActionResult> GetCartItems(int userId)
         {
@@ -24,6 +26,7 @@ namespace DotnetAPI.Controllers
             return Ok(items);
         }
 
+        [Authorize]
         [HttpPost("{userId}/Items")]
         public async Task<IActionResult> UpsertCartItem(int userId, [FromBody] CartItem cartItem)
         {
@@ -40,6 +43,7 @@ namespace DotnetAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpDelete("Items/Delete/{cartId}")]
         public async Task<IActionResult> DeleteCartItem(int cartId)
         {
@@ -50,6 +54,7 @@ namespace DotnetAPI.Controllers
             return NotFound($"CartItem with ID {cartId} was not found or already deleted.");
         }
 
+        [Authorize]
         [HttpDelete("Clear/{userId}")]
         public async Task<IActionResult> ClearCart(int userId)
         {

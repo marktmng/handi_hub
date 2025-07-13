@@ -3,6 +3,7 @@ using DotnetAPI.Models;
 using DotnetAPI.Repository;
 using DotnetAPI.Data;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotnetAPI.Controllers
 {
@@ -18,6 +19,7 @@ namespace DotnetAPI.Controllers
         }
 
         // Get all available payment methods
+        [Authorize]
         [HttpGet("Methods")]
         public async Task<IActionResult> GetPaymentMethods()
         {
@@ -26,6 +28,7 @@ namespace DotnetAPI.Controllers
         }
 
         // Add payment for an order
+        [Authorize]
         [HttpPost("Pay")]
         public async Task<IActionResult> Pay([FromBody] Payment payment)
         {
@@ -40,6 +43,7 @@ namespace DotnetAPI.Controllers
         }
 
         // Retrieve payment info by order ID
+        [Authorize]
         [HttpGet("Order/{orderId}")]
         public async Task<IActionResult> GetPaymentsByOrderId(int orderId)
         {

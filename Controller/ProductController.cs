@@ -4,6 +4,7 @@ using DotnetAPI.Repository;
 using System.Threading.Tasks;
 using DotnetAPI.Data;
 using DotnetAPI.Dtos;
+using Microsoft.AspNetCore.Authorization;
 namespace DotnetAPI.Controllers
 {
     [ApiController]
@@ -18,6 +19,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ GET all or one product
+        [AllowAnonymous]
         [HttpGet("GetProducts")]
         public async Task<IActionResult> GetProducts(
             int? productId = null,
@@ -31,6 +33,7 @@ namespace DotnetAPI.Controllers
 
 
         // ✅ POST for insert/update
+        [Authorize]
         [HttpPost("UpsertProduct")]
         public async Task<IActionResult> UpsertProduct([FromBody] Product product)
         {
@@ -46,6 +49,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ PUT for update
+        [Authorize]
         [HttpPut("Update/{productId}")]
         public async Task<IActionResult> UpdateProduct(int productId, [FromBody] Product product)
         {
@@ -61,6 +65,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ DELETE product
+        [Authorize]
         [HttpDelete("Delete/{productId}")]
         public async Task<IActionResult> DeleteProduct(int productId)
         {

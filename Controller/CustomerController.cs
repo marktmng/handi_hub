@@ -3,6 +3,7 @@ using DotnetAPI.Data;
 using DotnetAPI.Models;
 using DotnetAPI.Dtos;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotnetAPI.Controllers
 {
@@ -18,6 +19,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ GET (all or by ID) — returns ArtistDto ( user details)
+        [Authorize]
         [HttpGet("GetCustomers")]
         public async Task<IActionResult> GetArtists([FromQuery] int? customerId = null)
         {
@@ -26,6 +28,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ POST create or update
+        [Authorize]
         [HttpPost("UpsertCustomer")]
         public async Task<IActionResult> UpsertCustomerAsync([FromBody] Customer customer)
         {
@@ -41,6 +44,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ PUT update existing artist by ID
+        [Authorize]
         [HttpPut("Update/{customerId}")]
         public async Task<IActionResult> UpdateCustomer(int customerId, [FromBody] Customer customer)
         {
@@ -56,6 +60,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ DELETE artist by ID
+        [Authorize]
         [HttpDelete("Delete/{customerId}")]
         public async Task<IActionResult> DeleteCustomer(int customerId)
         {
