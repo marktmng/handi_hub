@@ -3,6 +3,7 @@ using DotnetAPI.Data;
 using DotnetAPI.Models;
 using System.Threading.Tasks;
 using DotnetAPI.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotnetAPI.Controllers
 {
@@ -17,6 +18,7 @@ namespace DotnetAPI.Controllers
             _categoryRepository = categoryRepository;
         }
 
+        [Authorize]
         [HttpGet("GetCategories")]
         public async Task<IActionResult> GetCategories(int? categoryId = null)
         {
@@ -24,6 +26,7 @@ namespace DotnetAPI.Controllers
             return Ok(categories);
         }
 
+        [Authorize]
         [HttpPost("UpsertCategory")]
         public async Task<IActionResult> UpsertCategory([FromBody] Category category)
         {
@@ -38,6 +41,7 @@ namespace DotnetAPI.Controllers
         }
 
         // New PUT endpoint for updating the full category info
+        [Authorize]
         [HttpPut("Update/{categoryId}")]
         public async Task<IActionResult> UpdateCategory(int categoryId, [FromBody] Category category)
         {
@@ -51,6 +55,7 @@ namespace DotnetAPI.Controllers
             return BadRequest("Failed to update category.");
         }
 
+        [Authorize]
         [HttpDelete("DeleteUser/{categoryId}")]
         public async Task<IActionResult> DeleteCategory(int categoryId)
         {

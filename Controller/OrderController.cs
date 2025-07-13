@@ -3,6 +3,7 @@ using DotnetAPI.Models;
 using DotnetAPI.Repository;
 using DotnetAPI.Data;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotnetAPI.Controllers
 {
@@ -18,6 +19,7 @@ namespace DotnetAPI.Controllers
         }
 
         // Orders
+        [Authorize]
         [HttpGet("GetOrders")]
         public async Task<IActionResult> GetOrders(int? orderId = null)
         {
@@ -25,6 +27,7 @@ namespace DotnetAPI.Controllers
             return Ok(orders);
         }
 
+        [Authorize]
         [HttpPost("UpsertOrder")]
         public async Task<IActionResult> UpsertOrder([FromBody] Order order)
         {
@@ -41,6 +44,7 @@ namespace DotnetAPI.Controllers
             return BadRequest("Failed to process order data.");
         }
 
+        [Authorize]
         [HttpPut("Update/{orderId}")]
         public async Task<IActionResult> UpdateOrder(int orderId, [FromBody] Order order)
         {
@@ -58,6 +62,7 @@ namespace DotnetAPI.Controllers
             return BadRequest("Failed to update order.");
         }
 
+        [Authorize]
         [HttpDelete("Delete/{orderId}")]
         public async Task<IActionResult> DeleteOrder(int orderId)
         {
@@ -69,6 +74,7 @@ namespace DotnetAPI.Controllers
         }
 
         // OrderItems
+        [Authorize]
         [HttpGet("{orderId}/Items")]
         public async Task<IActionResult> GetOrderItems(int orderId)
         {
@@ -76,6 +82,7 @@ namespace DotnetAPI.Controllers
             return Ok(items);
         }
 
+        [Authorize]
         [HttpPost("{orderId}/Items")]
         public async Task<IActionResult> UpsertOrderItem(int orderId, [FromBody] OrderItem orderItem)
         {
@@ -98,6 +105,7 @@ namespace DotnetAPI.Controllers
             return BadRequest("Failed to process order item data.");
         }
 
+        [Authorize]
         [HttpDelete("Items/Delete/{orderItemId}")]
         public async Task<IActionResult> DeleteOrderItem(int orderItemId)
         {
