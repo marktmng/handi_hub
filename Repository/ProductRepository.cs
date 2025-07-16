@@ -19,7 +19,7 @@ namespace DotnetAPI.Repository
         }
 
         // ✅ Get products with optional filter by ProductId
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync(
+        public async Task<IEnumerable<ProductReadOnlyDto>> GetProductsAsync(
             int? productId = null,
             string searchTerm = null,
             int? categoryId = null,
@@ -33,7 +33,7 @@ namespace DotnetAPI.Repository
         new SqlParameter("@ArtistId", (object?)artistId ?? DBNull.Value)
     };
 
-            return await _context.ProductDtos
+            return await _context.ProductReadOnlyDtos
                 .FromSqlRaw("EXEC HandiHub.spProducts_Get @ProductId, @SearchTerm, @CategoryId, @ArtistId", parameters)
                 .ToListAsync();
         }
@@ -86,13 +86,13 @@ namespace DotnetAPI.Repository
         }
 
         // ✅ Search product by keyword, category, or artist
-        public async Task<IEnumerable<ProductDto>> SearchProductsAsync(string searchTerm = null, int? categoryId = null, int? artistId = null)
+        public async Task<IEnumerable<ProductReadOnlyDto>> SearchProductsAsync(string searchTerm = null, int? categoryId = null, int? artistId = null)
         {
             var searchTermParam = new SqlParameter("@SearchTerm", (object?)searchTerm ?? DBNull.Value);
             var categoryIdParam = new SqlParameter("@CategoryId", (object?)categoryId ?? DBNull.Value);
             var artistIdParam = new SqlParameter("@ArtistId", (object?)artistId ?? DBNull.Value);
 
-            return await _context.ProductDtos
+            return await _context.ProductReadOnlyDtos
                 .FromSqlRaw("EXEC HandiHub.spProducts_Search @SearchTerm, @CategoryId, @ArtistId",
                     searchTermParam, categoryIdParam, artistIdParam)
                 .ToListAsync();

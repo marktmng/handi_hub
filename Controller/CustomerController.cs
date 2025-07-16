@@ -19,7 +19,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ GET (all or by ID) — returns ArtistDto ( user details)
-        [Authorize]
+        // [Authorize]
         [HttpGet("GetCustomers")]
         public async Task<IActionResult> GetArtists([FromQuery] int? customerId = null)
         {
@@ -28,7 +28,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ POST create or update
-        [Authorize]
+        // [Authorize]
         [HttpPost("UpsertCustomer")]
         public async Task<IActionResult> UpsertCustomerAsync([FromBody] Customer customer)
         {
@@ -44,7 +44,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ PUT update existing artist by ID
-        [Authorize]
+        // [Authorize]
         [HttpPut("Update/{customerId}")]
         public async Task<IActionResult> UpdateCustomer(int customerId, [FromBody] Customer customer)
         {
@@ -60,7 +60,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ DELETE artist by ID
-        [Authorize]
+        // [Authorize]
         [HttpDelete("Delete/{customerId}")]
         public async Task<IActionResult> DeleteCustomer(int customerId)
         {
