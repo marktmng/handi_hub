@@ -18,7 +18,7 @@ namespace DotnetAPI.Controllers
             _cartRepository = cartRepository;
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("{userId}/Items")]
         public async Task<IActionResult> GetCartItems(int userId)
         {
@@ -26,7 +26,7 @@ namespace DotnetAPI.Controllers
             return Ok(items);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpPost("{userId}/Items")]
         public async Task<IActionResult> UpsertCartItem(int userId, [FromBody] CartItem cartItem)
         {
@@ -43,7 +43,7 @@ namespace DotnetAPI.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete("Items/Delete/{cartId}")]
         public async Task<IActionResult> DeleteCartItem(int cartId)
         {
@@ -54,7 +54,7 @@ namespace DotnetAPI.Controllers
             return NotFound($"CartItem with ID {cartId} was not found or already deleted.");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete("Clear/{userId}")]
         public async Task<IActionResult> ClearCart(int userId)
         {

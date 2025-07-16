@@ -17,7 +17,7 @@ namespace DotnetAPI.Controllers
             _userRepository = userRepository;
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers(int? userId = null, string role = null)
         {
@@ -25,7 +25,7 @@ namespace DotnetAPI.Controllers
             return Ok(users);
         }
 
-        [AllowAnonymous]
+        // [AllowAnonymous]
         [HttpPost("UpsertUser")]
         public async Task<IActionResult> UpsertUser([FromBody] User user)
         {
@@ -40,7 +40,7 @@ namespace DotnetAPI.Controllers
         }
 
         // New PUT endpoint for updating the full user info
-        [AllowAnonymous]
+        // [AllowAnonymous]
         [HttpPut("Update/{userId}")]
         public async Task<IActionResult> UpdateUser(int userId, [FromBody] User user)
         {
@@ -54,7 +54,7 @@ namespace DotnetAPI.Controllers
             return BadRequest("Failed to update user.");
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpDelete("Delete/{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {

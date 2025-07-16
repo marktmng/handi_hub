@@ -19,7 +19,7 @@ namespace DotnetAPI.Controllers
         }
 
         // Get all available payment methods
-        [Authorize]
+        // [Authorize]
         [HttpGet("Methods")]
         public async Task<IActionResult> GetPaymentMethods()
         {
@@ -28,7 +28,7 @@ namespace DotnetAPI.Controllers
         }
 
         // Add payment for an order
-        [Authorize]
+        // [Authorize]
         [HttpPost("Pay")]
         public async Task<IActionResult> Pay([FromBody] Payment payment)
         {
@@ -43,7 +43,7 @@ namespace DotnetAPI.Controllers
         }
 
         // Retrieve payment info by order ID
-        [Authorize]
+        // [Authorize]
         [HttpGet("Order/{orderId}")]
         public async Task<IActionResult> GetPaymentsByOrderId(int orderId)
         {

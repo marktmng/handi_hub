@@ -12,10 +12,13 @@ namespace DotnetAPI.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
+        private readonly IWebHostEnvironment _environment;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository, IWebHostEnvironment environment)
+
         {
             _productRepository = productRepository;
+            _environment = environment;
         }
 
         // ✅ GET all or one product
@@ -33,23 +36,64 @@ namespace DotnetAPI.Controllers
 
 
         // ✅ POST for insert/update
-        [Authorize]
+        // [Authorize]
         [HttpPost("UpsertProduct")]
-        public async Task<IActionResult> UpsertProduct([FromBody] Product product)
+        public async Task<IActionResult> UpsertProduct([FromForm] ProductDto dto)
         {
-            if (product == null)
-                return BadRequest("Product is null.");
+            if (dto == null)
+                return BadRequest("Invalid product data.");
 
-            var result = await _productRepository.UpsertProductAsync(product);
+            string imageUrl = dto.ProductImage; // keep existing image URL if no new image uploaded
 
-            if (result != null && result.ProductId.HasValue)
-                return Ok(result);
+            if (dto.ProductImageFile != null && dto.ProductImageFile.Length > 0)
+            {
+                // Defensive fallback if WebRootPath is null
+                string webRootPath = _environment.WebRootPath;
+                if (string.IsNullOrEmpty(webRootPath))
+                {
+                    webRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                }
 
-            return BadRequest("Failed to process product data.");
+                var uploadsFolder = Path.Combine(webRootPath, "uploads");
+
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(dto.ProductImageFile.FileName)}";
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await dto.ProductImageFile.CopyToAsync(stream);
+                }
+
+                imageUrl = $"{Request.Scheme}://{Request.Host}/uploads/{fileName}";
+            }
+
+            var product = new Product
+            {
+                ProductId = dto.ProductId,
+                ProductName = dto.ProductName,
+                CategoryId = dto.CategoryId,
+                ProductDesc = dto.ProductDesc,
+                ProductImage = imageUrl,
+                ActualPrice = dto.ActualPrice,
+                SellingPrice = dto.SellingPrice,
+                Quantity = dto.Quantity,
+                ArtistId = dto.ArtistId
+            };
+
+            var savedProduct = await _productRepository.UpsertProductAsync(product);
+
+            if (savedProduct != null && savedProduct.ProductId.HasValue)
+                return Ok(savedProduct);
+
+            return BadRequest("Failed to save product.");
         }
 
+
         // ✅ PUT for update
-        [Authorize]
+        // [Authorize]
         [HttpPut("Update/{productId}")]
         public async Task<IActionResult> UpdateProduct(int productId, [FromBody] Product product)
         {
@@ -65,7 +109,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ DELETE product
-        [Authorize]
+        // [Authorize]
         [HttpDelete("Delete/{productId}")]
         public async Task<IActionResult> DeleteProduct(int productId)
         {

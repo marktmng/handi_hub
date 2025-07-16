@@ -1,17 +1,18 @@
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http; // for IFormFile
 
-[Keyless]
-public class ProductDto
+namespace DotnetAPI.Dtos
 {
-
-    public string ProductName { get; set; }
-    public int CategoryId { get; set; }
-    public string ProductDesc { get; set; }
-    public string ProductImage { get; set; }
-    public decimal ActualPrice { get; set; }
-    public decimal SellingPrice { get; set; }
-    public int Quantity { get; set; }
-    public int ArtistId { get; set; }
+    public class ProductDto
+    {
+        public int? ProductId { get; set; }
+        public string ProductName { get; set; }
+        public int CategoryId { get; set; }
+        public string ProductDesc { get; set; }
+        public IFormFile ProductImageFile { get; set; }  // <-- For uploaded image
+        public string ProductImage { get; set; }          // <-- For existing image URL (optional)
+        public decimal ActualPrice { get; set; }
+        public decimal SellingPrice { get; set; }
+        public int Quantity { get; set; }
+        public int ArtistId { get; set; }
+    }
 }
-
-

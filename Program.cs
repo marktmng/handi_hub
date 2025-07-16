@@ -3,41 +3,34 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using DotnetAPI.Data;
-using DotnetAPI.Repository; // ✅ Import your DataContext class from the Data folder
+using DotnetAPI.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ Register MVC Controller support (for APIs)
+// Register MVC Controller support (for APIs)
 builder.Services.AddControllers();
 
-// ✅ Register the DataContext using connection string from appsettings.json
+// Register the DataContext using connection string from appsettings.json
 builder.Services.AddDbContext<DataContext>();
 
-// ✅ Register Repositories for Dependency Injection
+// Register Repositories for Dependency Injection
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>(); // Register CustomerRepository
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); // Register CategoryRepository
-builder.Services.AddScoped<IProductRepository, ProductRepository>(); // Register ProductRepository
-builder.Services.AddScoped<IOrderRepository, OrderRepository>(); // Register OrderRepository
-builder.Services.AddScoped<ICartRepository, CartRepository>(); // Register CartItemRepository
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 
 string? tokenKeyString = builder.Configuration.GetSection("AppSettings:TokenKey").Value;
 
-// creating authentication token validation parameters
-// pull out token key string
-SymmetricSecurityKey tokenKey = new SymmetricSecurityKey( // symmetric key and passing to new symmetric key 
-    Encoding.UTF8.GetBytes( // and passing to new symmetric key byte array
-        tokenKeyString != null ? tokenKeyString : ""
-        )
-    );
+var tokenKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKeyString ?? ""));
 
-// token validation parameters for application how to use it
-TokenValidationParameters tokenValidationParameters = new TokenValidationParameters()
+var tokenValidationParameters = new TokenValidationParameters()
 {
     IssuerSigningKey = tokenKey,
     ValidateIssuer = false,
@@ -45,17 +38,17 @@ TokenValidationParameters tokenValidationParameters = new TokenValidationParamet
     ValidateAudience = false
 };
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // set authentication scheme
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = tokenValidationParameters;
     });
 
-// ✅ Register Swagger for API documentation
+// Register Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ✅ Register CORS policies
+// Register CORS policies
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevCors", corsBuilder =>
@@ -81,24 +74,23 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// ✅ Enable Swagger only in Development
+// Enable Swagger only in Development
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// ✅ Enforce HTTPS
+// Enable static files middleware to serve uploaded images
+app.UseStaticFiles();
+
 app.UseHttpsRedirection();
 
-// ✅ Use CORS (choose policy based on environment)
 app.UseCors(app.Environment.IsDevelopment() ? "DevCors" : "ProdCors");
 
-// ✅ Use authorization (if using [Authorize] attributes)
+app.UseAuthentication();
 app.UseAuthorization();
 
-// ✅ Map controller routes
 app.MapControllers();
 
-// ✅ Run the web app
 app.Run();

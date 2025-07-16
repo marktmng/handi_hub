@@ -19,7 +19,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ GET artists (all or by ID) — returns ArtistDto (includes user details)
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet("Getartists")]
         public async Task<IActionResult> GetArtists([FromQuery] int? artistId = null)
         {
@@ -28,7 +28,7 @@ namespace DotnetAPI.Controllers
         }
 
         // ✅ POST create or update artist
-        [Authorize]
+        // [Authorize]
         [HttpPost("UpsertArtist")]
         public async Task<IActionResult> UpsertArtistAsync([FromBody] Artist artist)
         {
@@ -45,7 +45,7 @@ namespace DotnetAPI.Controllers
 
         // ✅ PUT update existing artist by ID
         [HttpPut("Update/{artistId}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> UpdateArtist(int artistId, [FromBody] Artist artist)
         {
             if (artist == null || artist.ArtistId != artistId)
@@ -61,7 +61,7 @@ namespace DotnetAPI.Controllers
 
         // ✅ DELETE artist by ID
         [HttpDelete("Delete/{artistId}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> DeleteArtist(int artistId)
         {
             var deleted = await _artistRepository.DeleteArtistAsync(artistId);

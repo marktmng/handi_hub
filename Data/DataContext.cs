@@ -41,7 +41,8 @@ namespace DotnetAPI.Data
         public DbSet<UsersDto> UserDtos { get; set; }
         public DbSet<CustomerDto> CustomerDtos { get; set; }
         public DbSet<CategoryDto> CategoryDtos { get; set; }
-        public DbSet<ProductDto> ProductDtos { get; set; }
+        // public DbSet<ProductDto> ProductDtos { get; set; }
+        public DbSet<ProductReadOnlyDto> ProductReadOnlyDtos { get; set; }
         public DbSet<OrderDto> OrderDtos { get; set; } // Add OrderDto for read-only queries
         public DbSet<OrderItemDto> OrderItemDtos { get; set; } // Add OrderItemDto for read-only queries
         public DbSet<CartItemDto> CartItemDtos { get; set; } // Add CartItemDto for shopping cart functionality
@@ -112,7 +113,7 @@ namespace DotnetAPI.Data
             modelBuilder.Entity<PaymentMethod>()
                 .ToTable("PaymentMethods", "HandiHub")
                 .HasKey(pm => pm.PaymentMethodId);
-            
+
             modelBuilder.Entity<RegistrationDto>()
                 .ToTable("Auth", "HandiHub")
                 .HasKey(r => new { r.FirstName, r.LastName, r.UserName, r.Email, r.PhoneNumber, r.Role });
@@ -122,7 +123,7 @@ namespace DotnetAPI.Data
             modelBuilder.Entity<UsersDto>().HasNoKey();
             modelBuilder.Entity<CustomerDto>().HasNoKey();
             modelBuilder.Entity<CategoryDto>().HasNoKey();
-            modelBuilder.Entity<ProductDto>().HasNoKey();
+            modelBuilder.Entity<ProductReadOnlyDto>().HasNoKey();
             modelBuilder.Entity<OrderDto>().HasNoKey();
             modelBuilder.Entity<OrderItemDto>().HasNoKey();
             modelBuilder.Entity<CartItemDto>().HasNoKey();
