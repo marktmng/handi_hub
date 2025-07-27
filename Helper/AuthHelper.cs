@@ -86,5 +86,16 @@ namespace DotnetAPI.Helpers
                 return rowsAffected > 0;
             }
         }
+
+        // public string CreateRefreshToken()
+        // {
+        //     var randomNumber = new byte[32];
+        //     using (var rng = RandomNumberGenerator.Create())
+        //     {
+        //         rng.GetBytes(randomNumber);
+        //     }
+        //     return Convert.ToBase64String(randomNumber);
+        // }
+
     }
 }
