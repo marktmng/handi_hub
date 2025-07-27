@@ -17,7 +17,7 @@ namespace DotnetAPI.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<UsersDto>> GetUsersAsync(int? userId = null, string role = null)
+        public async Task<IEnumerable<User>> GetUsersAsync(int? userId = null, string role = null)
         {
             var parameters = new List<SqlParameter>();
 
@@ -29,9 +29,10 @@ namespace DotnetAPI.Repository
 
             string sql = "EXEC HandiHub.spUsers_Get @UserId, @Role";
 
-            return await _context.UserDtos
-                .FromSqlRaw(sql, parameters.ToArray())
-                .ToListAsync();
+            return await _context.Users
+    .FromSqlRaw(sql, parameters.ToArray())
+    .ToListAsync();
+
         }
 
         public async Task<User> UpsertUserAsync(User user)
@@ -50,7 +51,7 @@ namespace DotnetAPI.Repository
                 new SqlParameter("@Email", user.Email ?? (object)DBNull.Value),
                 new SqlParameter("@UserName", user.UserName ?? (object)DBNull.Value),
                 new SqlParameter("@PhoneNumber", user.PhoneNumber ?? (object)DBNull.Value),
-                new SqlParameter("@Role", user.Role ?? (object)DBNull.Value)
+                new SqlParameter("@Role", user.Role ?? (object)DBNull.Value),
         };
 
             await _context.Database.ExecuteSqlRawAsync(
@@ -60,9 +61,6 @@ namespace DotnetAPI.Repository
             user.UserId = (int?)userIdParam.Value;
             return user;
         }
-
-
-
 
         public async Task<bool> DeleteUserAsync(int userId)
         {
