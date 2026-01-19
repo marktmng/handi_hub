@@ -1,4 +1,4 @@
-# HandiHub 🛠️
+# E-Commerce Backend 🛠️
 
 **HandiHub** is a web-based platform designed to connect users with skilled artisans and handicraft service providers. Built with ASP.NET Core Web API and SQL Server, this system includes role-based access for Admins, Management, and Customers.
 
